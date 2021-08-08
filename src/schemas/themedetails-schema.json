@@ -1,0 +1,129 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "properties": {
+        "author": {
+            "type": "string"
+        },
+        "authorEmail": {
+            "type": "string"
+        },
+        "authorWebsite": {
+            "type": "string"
+        },
+        "creationDate": {
+            "type": "string"
+        },
+        "description": {
+            "type": "string"
+        },
+        "fieldsets": {
+            "items": {
+                "additionalProperties": false,
+                "properties": {
+                    "fields": {
+                        "items": {
+                            "additionalProperties": false,
+                            "properties": {
+                                "description": {
+                                    "type": "string"
+                                },
+                                "label": {
+                                    "type": "string"
+                                },
+                                "name": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "enum": [
+                                        "CHECKBOX",
+                                        "NUMBER",
+                                        "RADIO",
+                                        "SELECT",
+                                        "TEXT"
+                                    ],
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "description",
+                                "label",
+                                "name",
+                                "type"
+                            ],
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "fields",
+                    "name"
+                ],
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "languages": {
+            "items": {
+                "additionalProperties": false,
+                "properties": {
+                    "code": {
+                        "type": "string"
+                    },
+                    "file": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "code",
+                    "file"
+                ],
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "license": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "positions": {
+            "items": {
+                "additionalProperties": false,
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name"
+                ],
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "version": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "author",
+        "authorEmail",
+        "authorWebsite",
+        "creationDate",
+        "description",
+        "fieldsets",
+        "languages",
+        "license",
+        "name",
+        "positions",
+        "version"
+    ],
+    "type": "object"
+}
+

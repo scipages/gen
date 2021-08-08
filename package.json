@@ -1,0 +1,53 @@
+{
+  "name": "@scipages/gen",
+  "version": "0.0.1",
+  "description": "A CMS and Static Site Generator for academic websites",
+  "productName": "SciPages",
+  "author": "Christos",
+  "private": true,
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/scipages/gen/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scipages/gen.git"
+  },
+  "homepage": "https://www.scipages.org",
+  "keywords": [
+    "static-site",
+    "static-site-generator",
+    "academic-websites",
+    "research-websites"
+  ],
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "lib/**/*"
+  ],
+  "bin": {
+    "scipages": "./bin/scipages"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-themedetails-schema": "typescript-json-schema ./tsconfig.json ThemeDetails --refs=false --required=true --noExtraProps=true --out=./src/schemas/themedetails-schema.json",
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "lint": "eslint \"src\\**\\*.ts\""
+  },
+  "dependencies": {
+    "ajv": "^8.6.2",
+    "pug": "^3.0.2",
+    "yargs": "^17.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.4.13",
+    "@types/pug": "^2.0.5",
+    "@types/yargs": "^17.0.2",
+    "@typescript-eslint/eslint-plugin": "^4.29.0",
+    "@typescript-eslint/parser": "^4.29.0",
+    "eslint": "^7.32.0",
+    "typescript": "^4.3.5",
+    "typescript-json-schema": "^0.50.1"
+  }
+}
