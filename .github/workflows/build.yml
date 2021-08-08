@@ -25,3 +25,8 @@ jobs:
       - run: npm run build
       - run: ls
       - run: ls lib
+      - run: npm pack
+      - uses: actions/upload-artifact@v2
+        with:
+          name: "${{ matrix.os }}-node-${{ matrix.node_version }}"
+          path: scipages-gen-*.tgz
