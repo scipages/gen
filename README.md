@@ -34,7 +34,7 @@ Make sure that you have Node.js and NPM installed on your machine. Preferably >=
 # Install the dependencies
 npm install
 
-# Build the app
+# Build the package
 npm run build
 
 # Watch for file changes
