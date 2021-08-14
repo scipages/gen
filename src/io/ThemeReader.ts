@@ -10,14 +10,13 @@ export class ThemeReader {
   private warnings: Array<string>
   private errors: Array<string>
 
-  constructor(themeDirectory: string, themeOptions: object) {
+  constructor(themeDirectory: string) {
     this.theme = {
       directory: themeDirectory,
       // @ts-ignore
       details: null,
-      detailsFilename: path.join(themeDirectory, 'themeDetails.json'),
       isDetailsValid: false,
-      options: themeOptions,
+      detailsFilename: path.join(themeDirectory, 'themeDetails.json'),
       indexFilename: path.join(themeDirectory, 'pug', 'index.pug')
     }
 

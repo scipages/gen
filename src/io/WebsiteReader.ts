@@ -10,14 +10,13 @@
 //   private warnings: Array<string>
 //   private errors: Array<string>
 //
-//   constructor(websiteDirectory: string, themeOptions: object) {
+//   constructor(websiteDirectory: string) {
 //     this.theme = {
 //       directory: themeDirectory,
 //       // @ts-ignore
 //       details: null,
-//       detailsFilename: path.join(themeDirectory, 'themeDetails.json'),
 //       isDetailsValid: false,
-//       options: themeOptions,
+//       detailsFilename: path.join(themeDirectory, 'themeDetails.json'),
 //       indexFilename: path.join(themeDirectory, 'pug', 'index.pug')
 //     }
 //
@@ -29,6 +28,10 @@
 //     // ...
 //
 //     return !this.hasErrors()
+//   }
+
+//   getAllPageData(): Array<PageData> {
+//     // ...
 //   }
 //
 //   // get...(): ... {

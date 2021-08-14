@@ -10,9 +10,10 @@ import { Publication } from '../entities/Publication'
 import { Link } from '../entities/common/Link'
 import { Software } from '../entities/Software'
 
-export interface Website {
+export interface WebsiteData {
   directory: string
 
+  themeConfigurationFilename: string
   configurationFilename: string
   pagesFilename: string
   menuItemsFilename: string
@@ -25,6 +26,7 @@ export interface Website {
   socialMediaFilename: string
   softwareFilename: string
 
+  themeConfiguration: object  // Depends on Theme -> ThemeDetails.fieldsets
   configuration: Configuration
   pages: Array<Page>
   menuItems: Array<MenuItem>

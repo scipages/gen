@@ -66,19 +66,27 @@ if (!themeReader.hasErrors()) {
     // @ts-ignore
     args['out'],
     theme,
-    [],
-    // @ts-ignore
     {
-      pathOrUrl: 'my-page'
-    },
-    pages[0],
-    basicInfo,
-    [],
-    [],
-    [],
-    [],
-    [],
-    []
+      menuItems: [],
+      // @ts-ignore
+      activeMenuItem: {
+        pathOrUrl: 'my-page'
+      },
+      page: pages[0],
+
+      themeConfiguration: {},
+
+      // @ts-ignore
+      configuration: {},
+      basicInfo: basicInfo,
+      courses: [],
+      highlights: [],
+      persons: [],
+      projects: [],
+      publications: [],
+      socialMedia: [],
+      software: []
+    }
   )
 
   if (!pageGenerator.gen()) {

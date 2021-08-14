@@ -2,34 +2,15 @@ import * as pug from 'pug'
 import * as fs from 'fs'
 import * as path from 'path'
 
-import { MenuItem } from '../entities/MenuItem'
-import { Page } from '../entities/Page'
-
-import { BasicInfo } from '../entities/BasicInfo'
-
-import { Course } from '../entities/Course'
-import { Highlight } from '../entities/Highlight'
-import { Person } from '../entities/Person'
-import { Project } from '../entities/Project'
-import { Publication } from '../entities/Publication'
-import { Software } from '../entities/Software'
 import { Theme } from '../types/Theme'
+import { PageData } from '../types/PageData'
 
 export class PageGenerator {
   private readonly outDirectory: string
   private readonly theme: Theme
   private pageHtml: string
 
-  private readonly menuItems: Array<MenuItem>
-  private readonly activeMenuItem: MenuItem
-  private readonly page: Page
-  private readonly basicInfo: BasicInfo
-  private readonly courses: Array<Course>
-  private readonly highlights: Array<Highlight>
-  private readonly persons: Array<Person>
-  private readonly projects: Array<Project>
-  private readonly publications: Array<Publication>
-  private readonly software: Array<Software>
+  private readonly pageData: PageData
 
   private warnings: Array<string>
   private errors: Array<string>
@@ -37,31 +18,13 @@ export class PageGenerator {
   constructor(
     outDirectory: string,
     theme: Theme,
-    menuItems: Array<MenuItem>,
-    activeMenuItem: MenuItem,
-    page: Page,
-    basicInfo: BasicInfo,
-    courses: Array<Course>,
-    highlights: Array<Highlight>,
-    persons: Array<Person>,
-    projects: Array<Project>,
-    publications: Array<Publication>,
-    software: Array<Software>
+    pageData: PageData
   ) {
     this.outDirectory = outDirectory
     this.theme = theme
     this.pageHtml = ''
 
-    this.menuItems = menuItems
-    this.activeMenuItem = activeMenuItem
-    this.page = page
-    this.basicInfo = basicInfo
-    this.courses = courses
-    this.highlights = highlights
-    this.persons = persons
-    this.projects = projects
-    this.publications = publications
-    this.software = software
+    this.pageData = pageData
 
     this.warnings = []
     this.errors = []
@@ -70,16 +33,7 @@ export class PageGenerator {
   gen(): boolean {
     const compiledFunction = pug.compileFile(this.theme.indexFilename)
     this.pageHtml = compiledFunction({
-      menuItems: this.menuItems,
-      activeMenuItem: this.activeMenuItem,
-      page: this.page,
-      basicInfo: this.basicInfo,
-      courses: this.courses,
-      highlights: this.highlights,
-      persons: this.persons,
-      projects: this.projects,
-      publications: this.publications,
-      software: this.software
+      pageData: this.pageData
     })
 
     // Create the output directory
@@ -91,7 +45,7 @@ export class PageGenerator {
     this.cleanOutDirectory(this.outDirectory)
 
     fs.writeFileSync(
-      path.join(this.outDirectory, this.activeMenuItem.pathOrUrl + '.html'),
+      path.join(this.outDirectory, this.pageData.activeMenuItem.pathOrUrl + '.html'),
       this.pageHtml,
       'utf-8'
     )

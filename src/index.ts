@@ -23,7 +23,8 @@ export {
   Theme
 } from './types/Theme'
 
-export { Website } from './types/Website'
+export { WebsiteData } from './types/WebsiteData'
+export { PageData } from './types/PageData'
 
 export { IEntity } from './entities/interfaces/IEntity'
 export { Link } from './entities/common/Link'

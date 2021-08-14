@@ -78,8 +78,7 @@ export interface ThemeDetails {
 export interface Theme {
   directory: string
   details: ThemeDetails
-  detailsFilename: string
   isDetailsValid: boolean
-  options: object
+  detailsFilename: string
   indexFilename: string
 }
