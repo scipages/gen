@@ -22,7 +22,8 @@ export interface Configuration {
   title: string
   theme: ConfigurationThemeEnum
   customTheme: string
-  urlPrefix: string // eg. '/', '/~my-prefix/' (Prepended to every non-absolute URL)
+  url: string // eg. 'https://scipages.github.io', 'https://www.scipages.org', 'https://scipages.org' (Used for setting absolute URLs, like the one on the 'canonical' tag)
+  urlPrefix: string // eg. '/', '/~my-prefix/' (Prepended to every non-absolute URL. The path after the host)
   scssCodeInternal: string // 'global' internal CSS. Added on all pages
   scssCodeExternal: string // 'global' external CSS. Added on all pages
 }

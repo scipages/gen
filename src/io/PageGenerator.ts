@@ -33,7 +33,7 @@ export class PageGenerator {
   gen(): boolean {
     const compiledFunction = pug.compileFile(this.theme.indexFilename)
     this.pageHtml = compiledFunction({
-      pageData: this.pageData
+      data: this.pageData
     })
 
     // Create the output directory

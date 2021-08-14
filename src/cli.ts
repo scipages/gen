@@ -1,11 +1,8 @@
 import * as yargs from 'yargs'
-import * as fs from 'fs'
-import * as path from 'path'
 
 import { ThemeReader } from './io/ThemeReader'
+import { WebsiteReader } from './io/WebsiteReader'
 import { PageGenerator } from './io/PageGenerator'
-import { Page } from './entities/Page'
-import { BasicInfo } from './entities/BasicInfo'
 import { Theme } from './types/Theme'
 
 const args = yargs.options({
@@ -35,32 +32,19 @@ const args = yargs.options({
 
 // @ts-ignore
 const themeReader = new ThemeReader(args['theme'], {})
-
-if (themeReader.read()) {
+if (!themeReader.read()) {
   console.error(JSON.stringify(themeReader.getErrors(), null, 2));
   process.exitCode = 1;
 }
 
-
-
-// =========================================================================
-// The following should go in WebsiteReader.ts =============================
 // @ts-ignore
-const rawdata = fs.readFileSync(path.join(args['website'], 'pages.json'), 'utf-8')
-let pages: Array<Page> = []
-try {
-  pages = JSON.parse(rawdata.toString()).pages
-} catch (e) {
-  console.log(e.message)
+const websiteReader = new WebsiteReader(args['website'], {})
+if (!websiteReader.read()) {
+  console.error(JSON.stringify(websiteReader.getErrors(), null, 2));
+  process.exitCode = 1;
 }
-// @ts-ignore
-const basicInfo: BasicInfo = JSON.parse(fs.readFileSync(path.join(args['website'], 'basicInfo.json'), 'utf-8').toString())
-// =========================================================================
 
-
-
-// if (!themeReader.hasErrors() && !websiteReader.hasErrors()) {
-if (!themeReader.hasErrors()) {
+if (!themeReader.hasErrors() && !websiteReader.hasErrors()) {
   const theme: Theme = themeReader.getTheme()
   const pageGenerator = new PageGenerator(
     // @ts-ignore
@@ -72,13 +56,13 @@ if (!themeReader.hasErrors()) {
       activeMenuItem: {
         pathOrUrl: 'my-page'
       },
-      page: pages[0],
+      page: websiteReader.getWebsiteData().pages[0],
 
       themeConfiguration: {},
 
       // @ts-ignore
-      configuration: {},
-      basicInfo: basicInfo,
+      configuration: websiteReader.getWebsiteData().configuration,
+      basicInfo: websiteReader.getWebsiteData().basicInfo,
       courses: [],
       highlights: [],
       persons: [],

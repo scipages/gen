@@ -31,17 +31,8 @@ export class ThemeReader {
       )
     }
 
-    if (!fs.existsSync(this.theme.indexFilename)) {
-      this.errors.push(
-        `The theme is missing the file '${this.theme.indexFilename}'`
-      )
-    }
-
-    if (!fs.existsSync(this.theme.detailsFilename)) {
-      this.errors.push(
-        `The theme is missing the file '${this.theme.detailsFilename}'`
-      )
-    }
+    this.checkIfFileIsMissing(this.theme.indexFilename)
+    this.checkIfFileIsMissing(this.theme.detailsFilename)
 
     if (!this.hasErrors()) {
       const rawdata = fs.readFileSync(this.theme.detailsFilename, 'utf-8')
@@ -78,6 +69,14 @@ export class ThemeReader {
     }
 
     return !this.hasErrors()
+  }
+
+  checkIfFileIsMissing(file: string): void {
+    if (!fs.existsSync(file)) {
+      this.errors.push(
+        `The theme is missing the file '${file}'`
+      )
+    }
   }
 
   getTheme(): Theme {

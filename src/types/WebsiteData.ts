@@ -37,5 +37,5 @@ export interface WebsiteData {
   projects: Array<Project>
   publications: Array<Publication>
   socialMedia: Array<Link>
-  software: Software
+  software: Array<Software>
 }
