@@ -15,6 +15,8 @@ export interface Page extends IEntity {
     keywords: string
     author: string
   }
+  scssCodeInternal: string
+  scssCodeExternal: string
   sections: Array<IPageSection>
   enabled: boolean
   dateCreated: Date

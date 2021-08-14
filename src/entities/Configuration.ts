@@ -22,4 +22,7 @@ export interface Configuration {
   title: string
   theme: ConfigurationThemeEnum
   customTheme: string
+  urlPrefix: string // eg. '/', '/~my-prefix/' (Prepended to every non-absolute URL)
+  scssCodeInternal: string // 'global' internal CSS. Added on all pages
+  scssCodeExternal: string // 'global' external CSS. Added on all pages
 }
