@@ -67,7 +67,7 @@ export class WebsiteReader {
     this.errors = []
   }
 
-  read(): boolean {
+  public read(): boolean {
     if (!fs.existsSync(this.websiteData.directory)) {
       this.errors.push(
         `The website directory '${this.websiteData.directory}' is not valid`
@@ -123,7 +123,7 @@ export class WebsiteReader {
     return !this.hasErrors()
   }
 
-  checkIfFileIsMissing(file: string): void {
+  private checkIfFileIsMissing(file: string): void {
     if (!fs.existsSync(file)) {
       this.errors.push(
         `The website is missing the file '${file}'`
@@ -131,7 +131,7 @@ export class WebsiteReader {
     }
   }
 
-  readFile(file: string, websiteDataProperty: string, fileJsonProperty = ''): void {
+  private readFile(file: string, websiteDataProperty: string, fileJsonProperty = ''): void {
     if (!Object.prototype.hasOwnProperty.call(this.websiteData, websiteDataProperty)) {
       this.errors.push(
         `Failed to read the file '${file}':  Unrecognized property ${websiteDataProperty}`
@@ -171,7 +171,7 @@ export class WebsiteReader {
       jsonObject[fileJsonProperty]
   }
 
-  getFixedUrl(url: string): string {
+  private getFixedUrl(url: string): string {
     if (url === '') {
       return url
     }
@@ -190,7 +190,7 @@ export class WebsiteReader {
     return url
   }
 
-  getFixedUrlPrefix(urlPrefix: string): string {
+  private getFixedUrlPrefix(urlPrefix: string): string {
     if (urlPrefix === '') {
       return '/'
     }
@@ -207,7 +207,7 @@ export class WebsiteReader {
   /**
    * Set the canonical URLs of the pages
    */
-  setCanonicalUrls(): void {
+  private setCanonicalUrls(): void {
     for (let i = 0; i < this.websiteData.pages.length; i++) {
       const page: Page = this.websiteData.pages[i]
       this.websiteData.pages[i].meta.canonical =
@@ -219,7 +219,7 @@ export class WebsiteReader {
     }
   }
 
-  setEnabledPagesAndSections(): void {
+  private setEnabledPagesAndSections(): void {
     for (let i = 0; i < this.websiteData.pages.length; i++) {
       const page: Page = this.websiteData.pages[i]
       if (!page.enabled) {
@@ -241,7 +241,7 @@ export class WebsiteReader {
     }
   }
 
-  setEnabledMenuItems(): void {
+  private setEnabledMenuItems(): void {
     this.websiteData.menuItems.sort(
       (a, b) => {
         return (a.order > b.order) ? 1 : ((b.order > a.order) ? -1 : 0)
@@ -286,14 +286,14 @@ export class WebsiteReader {
     }
   }
 
-  // getPageById(): Page {
+  // public getPageById(): Page {
   //
   // }
 
   /**
    * Returns a list of PageData objects
    */
-  getAllPageData(): Array<PageData> {
+  public getAllPageData(): Array<PageData> {
     if (this.hasErrors()) {
       return []
     }
@@ -303,27 +303,27 @@ export class WebsiteReader {
     return []
   }
 
-  // get...(): ... {
+  // public get...(): ... {
   //   return this....
   // }
 
-  getWebsiteData(): WebsiteData {
+  public getWebsiteData(): WebsiteData {
     return this.websiteData
   }
 
-  hasWarnings(): boolean {
+  public hasWarnings(): boolean {
     return this.warnings.length !== 0
   }
 
-  hasErrors(): boolean {
+  public hasErrors(): boolean {
     return this.errors.length !== 0
   }
 
-  getWarnings(): Array<string> {
+  public getWarnings(): Array<string> {
     return this.warnings
   }
 
-  getErrors(): Array<string> {
+  public getErrors(): Array<string> {
     return this.errors
   }
 }

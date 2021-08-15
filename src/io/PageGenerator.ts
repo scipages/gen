@@ -30,7 +30,7 @@ export class PageGenerator {
     this.errors = []
   }
 
-  gen(): boolean {
+  public gen(): boolean {
     const compiledFunction = pug.compileFile(this.theme.indexFilename)
     this.pageHtml = compiledFunction({
       data: this.pageData
@@ -53,7 +53,7 @@ export class PageGenerator {
     return !this.hasErrors()
   }
 
-  cleanOutDirectory(directory: string): boolean {
+  private cleanOutDirectory(directory: string): boolean {
     if (fs.existsSync(directory) && fs.lstatSync(directory).isDirectory()) {
       fs.readdirSync(directory).forEach(file => {
         const curPath = path.join(directory, file)
@@ -71,19 +71,19 @@ export class PageGenerator {
     return true
   }
 
-  hasWarnings(): boolean {
+  public hasWarnings(): boolean {
     return this.warnings.length !== 0
   }
 
-  hasErrors(): boolean {
+  public hasErrors(): boolean {
     return this.errors.length !== 0
   }
 
-  getWarnings(): Array<string> {
+  public getWarnings(): Array<string> {
     return this.warnings
   }
 
-  getErrors(): Array<string> {
+  public getErrors(): Array<string> {
     return this.errors
   }
 }

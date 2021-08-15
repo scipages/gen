@@ -24,7 +24,7 @@ export class ThemeReader {
     this.errors = []
   }
 
-  read(): boolean {
+  public read(): boolean {
     if (!fs.existsSync(this.theme.directory)) {
       this.errors.push(
         `The theme directory '${this.theme.directory}' is not valid`
@@ -71,7 +71,7 @@ export class ThemeReader {
     return !this.hasErrors()
   }
 
-  checkIfFileIsMissing(file: string): void {
+  private checkIfFileIsMissing(file: string): void {
     if (!fs.existsSync(file)) {
       this.errors.push(
         `The theme is missing the file '${file}'`
@@ -79,23 +79,23 @@ export class ThemeReader {
     }
   }
 
-  getTheme(): Theme {
+  public getTheme(): Theme {
     return this.theme
   }
 
-  hasWarnings(): boolean {
+  public hasWarnings(): boolean {
     return this.warnings.length !== 0
   }
 
-  hasErrors(): boolean {
+  public hasErrors(): boolean {
     return this.errors.length !== 0
   }
 
-  getWarnings(): Array<string> {
+  public getWarnings(): Array<string> {
     return this.warnings
   }
 
-  getErrors(): Array<string> {
+  public getErrors(): Array<string> {
     return this.errors
   }
 }
