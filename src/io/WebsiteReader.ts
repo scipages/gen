@@ -2,9 +2,21 @@ import * as fs from 'fs'
 import * as path from 'path'
 import { WebsiteData } from '../types/WebsiteData'
 import { PageData } from '../types/PageData'
+import { Page, PageTypeEnum } from '../entities/Page'
+import { MenuItem, MenuItemTypeEnum } from '../entities/MenuItem'
+import { IPageSection } from '../entities/PageSection'
 
 export class WebsiteReader {
   private websiteData: WebsiteData
+
+  private enabledPageIds: Array<string>
+  private enabledPages: Record<string, Page>
+  private enabledPagesPerPageSectionId: Record<string, Page>
+  private enabledPageSectionIds: Array<string>
+  private enabledPageSections: Record<string, IPageSection>
+  // private enabledPageSectionsPerPage: Record<string, Record<string, IPageSection>>
+  private enabledMenuItemIds: Array<string>
+  private enabledMenuItems: Array<MenuItem>
 
   private warnings: Array<string>
   private errors: Array<string>
@@ -41,6 +53,15 @@ export class WebsiteReader {
       socialMedia: [],
       software: []
     }
+
+    this.enabledPageIds = []
+    this.enabledPages = {}
+    this.enabledPagesPerPageSectionId = {}
+    this.enabledPageSectionIds = []
+    this.enabledPageSections = {}
+    // this.enabledPageSectionsPerPage = {}
+    this.enabledMenuItemIds = []
+    this.enabledMenuItems = []
 
     this.warnings = []
     this.errors = []
@@ -93,6 +114,11 @@ export class WebsiteReader {
     this.websiteData.configuration.urlPrefix = this.getFixedUrlPrefix(
       this.websiteData.configuration.urlPrefix
     )
+
+    // The following must be set after 'url' and 'urlPrefix' are fixed
+    this.setCanonicalUrls()
+    this.setEnabledPagesAndSections()
+    this.setEnabledMenuItems()
 
     return !this.hasErrors()
   }
@@ -177,6 +203,92 @@ export class WebsiteReader {
     }
     return newUrlPrefix
   }
+
+  /**
+   * Set the canonical URLs of the pages
+   */
+  setCanonicalUrls(): void {
+    for (let i = 0; i < this.websiteData.pages.length; i++) {
+      const page: Page = this.websiteData.pages[i]
+      this.websiteData.pages[i].meta.canonical =
+        this.websiteData.configuration.url +
+        this.websiteData.configuration.urlPrefix
+      if (page.type !== PageTypeEnum.Home) {
+        this.websiteData.pages[i].meta.canonical += page.alias + '.html'
+      }
+    }
+  }
+
+  setEnabledPagesAndSections(): void {
+    for (let i = 0; i < this.websiteData.pages.length; i++) {
+      const page: Page = this.websiteData.pages[i]
+      if (!page.enabled) {
+        continue
+      }
+      this.enabledPageIds.push(page.id)
+      this.enabledPages[page.id] = page
+      // this.enabledPageSectionsPerPage[page.id] = {}
+      for (let j = 0; j < page.sections.length; j++) {
+        const pageSection: IPageSection = page.sections[i]
+        if (!pageSection.enabled) {
+          continue
+        }
+        this.enabledPageSectionIds.push(pageSection.id)
+        this.enabledPageSections[pageSection.id] = pageSection
+        this.enabledPagesPerPageSectionId[pageSection.id] = page
+        // this.enabledPageSectionsPerPage[page.id][pageSection.id] = pageSection
+      }
+    }
+  }
+
+  setEnabledMenuItems(): void {
+    this.websiteData.menuItems.sort(
+      (a, b) => {
+        return (a.order > b.order) ? 1 : ((b.order > a.order) ? -1 : 0)
+      }
+    )
+
+    for (let i = 0; i < this.websiteData.menuItems.length; i++) {
+      const menuItem: MenuItem = this.websiteData.menuItems[i]
+      if (!menuItem.enabled) {
+        continue
+      }
+      if (
+        menuItem.type === MenuItemTypeEnum.Page &&
+        !this.enabledPageIds.includes(menuItem.targetId)
+      ) {
+        this.warnings.push(
+          `The page '${menuItem.targetId}' is not enabled`
+        )
+        continue
+      }
+      if (
+        menuItem.type === MenuItemTypeEnum.PageSection &&
+        !this.enabledPageSectionIds.includes(menuItem.targetId)
+      ) {
+        this.warnings.push(
+          `The page section '${menuItem.targetId}' is not enabled`
+        )
+        continue
+      }
+
+      if (menuItem.type === MenuItemTypeEnum.Page) {
+        menuItem.href = this.websiteData.configuration.urlPrefix +
+          this.enabledPages[menuItem.targetId].alias + '.html'
+      } else if (menuItem.type === MenuItemTypeEnum.PageSection) {
+        menuItem.href = this.websiteData.configuration.urlPrefix +
+          this.enabledPagesPerPageSectionId[menuItem.targetId].alias + '.html#'
+          this.enabledPageSections[menuItem.targetId].alias
+      }
+
+      this.enabledMenuItemIds.push(menuItem.id)
+      this.enabledMenuItems.push(menuItem)
+    }
+  }
+
+  // getPageById(): Page {
+  //
+  // }
 
   /**
    * Returns a list of PageData objects

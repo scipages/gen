@@ -45,7 +45,7 @@ export class PageGenerator {
     this.cleanOutDirectory(this.outDirectory)
 
     fs.writeFileSync(
-      path.join(this.outDirectory, this.pageData.activeMenuItem.pathOrUrl + '.html'),
+      path.join(this.outDirectory, this.pageData.page.alias + '.html'),
       this.pageHtml,
       'utf-8'
     )

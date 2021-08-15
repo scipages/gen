@@ -54,7 +54,7 @@ if (!themeReader.hasErrors() && !websiteReader.hasErrors()) {
       menuItems: [],
       // @ts-ignore
       activeMenuItem: {
-        pathOrUrl: 'my-page'
+        href: 'my-page'
       },
       page: websiteReader.getWebsiteData().pages[0],
 

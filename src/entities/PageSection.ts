@@ -2,7 +2,9 @@ import { IEntity } from './interfaces/IEntity'
 import { PublicationTypeEnum } from './Publication'
 
 export interface IPageSection {
+  id: string
   title: string
+  alias: string // The 'id' attribute of the page section's wrapping HTML element. Used on links to the page section. Unique, alphanumeric, no spaces, no special characters except dashes (-)
   enabled: boolean
   dateCreated: Date
   dateUpdated: Date
@@ -37,6 +39,7 @@ export interface ContentPageSectionFilterPublications extends ContentPageSection
 export interface ContentPageSection extends IEntity, IPageSection {
   id: string
   title: string
+  alias: string
   type: ContentPageSectionTypeEnum
   filter: ContentPageSectionFilter
   enabled: boolean
@@ -47,6 +50,7 @@ export interface ContentPageSection extends IEntity, IPageSection {
 export interface CustomPageSection extends IEntity, IPageSection {
   id: string
   title: string
+  alias: string
   content: string
   enabled: boolean
   dateCreated: Date

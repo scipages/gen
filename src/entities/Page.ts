@@ -9,11 +9,13 @@ export enum PageTypeEnum {
 export interface Page extends IEntity {
   id: string
   title: string
+  alias: string // The 'filename' of the page. Used on links to the page. Empty ('') for 'HOME' page type. Unique, alphanumeric, no spaces, no special characters except dashes (-)
   type: PageTypeEnum
   meta: {
     description: string
     keywords: string
     author: string
+    canonical: string // Generated automatically
   }
   scssCodeInternal: string
   scssCodeExternal: string

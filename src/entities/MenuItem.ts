@@ -9,7 +9,7 @@ export enum MenuItemTypeEnum {
 export interface MenuItem extends IEntity {
   id: string
   title: string
-  pathOrUrl: string
+  href: string // 1) The URL of an 'external' link (set by the user) or 2) The relative path for a 'page' or 'section' link (set automatically)
   targetId: string
   order: number
   type: MenuItemTypeEnum
