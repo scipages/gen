@@ -29,7 +29,7 @@
     "scipages": "./bin/scipages"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build-themedetails-schema": "typescript-json-schema ./tsconfig.json ThemeDetails --refs=false --required=true --noExtraProps=true --out=./src/schemas/themedetails-schema.json",
     "build": "tsc",
     "build-run": "tsc && scipages",
@@ -43,12 +43,15 @@
     "yargs": "^17.1.0"
   },
   "devDependencies": {
+    "@types/jest": "^27.0.1",
     "@types/node": "^16.4.13",
     "@types/pug": "^2.0.5",
     "@types/yargs": "^17.0.2",
     "@typescript-eslint/eslint-plugin": "^4.29.0",
     "@typescript-eslint/parser": "^4.29.0",
     "eslint": "^7.32.0",
+    "jest": "^27.0.6",
+    "ts-jest": "^27.0.5",
     "ts-node": "^9.1.1",
     "typescript": "^4.3.5",
     "typescript-json-schema": "^0.50.1"

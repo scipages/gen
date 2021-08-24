@@ -2,9 +2,10 @@
 .thumbs.db
 node_modules
 
-# Compiled code
+# Compiled code & output
 /lib
 /dist
+/coverage
 
 # Log files
 npm-debug.log*

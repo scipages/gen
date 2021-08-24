@@ -10,14 +10,14 @@ const args = yargs.options({
     alias: 't',
     type: 'string',
     demandOption: true,
-    default: './example-theme',
+    default: './test-theme',
     describe: 'The theme directory'
   },
   'website': {
     alias: 'w',
     type: 'string',
     demandOption: true,
-    default: './example-website',
+    default: './test-website',
     describe: 'The website source directory'
   },
   'out': {
