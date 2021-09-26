@@ -144,8 +144,12 @@ export class WebsiteReader {
         fs.readFileSync(file, 'utf-8').toString()
       )
     } catch (e) {
+      let msg = ''
+      if (e instanceof Error) {
+        msg += e.message
+      }
       this.errors.push(
-        `Failed to read the file '${file}':  ${e.message}`
+        `Failed to read the file '${file}':  ${msg}`
       )
       return
     }

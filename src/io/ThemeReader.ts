@@ -39,8 +39,12 @@ export class ThemeReader {
       try {
         this.theme.details = JSON.parse(rawdata.toString())
       } catch (e) {
+        let msg = ''
+        if (e instanceof Error) {
+          msg += e.message
+        }
         this.errors.push(
-          `Failed to read '${this.theme.detailsFilename}': ${e.message}`
+          `Failed to read '${this.theme.detailsFilename}': ${msg}`
         )
       }
     }
