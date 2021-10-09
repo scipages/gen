@@ -6,6 +6,13 @@ export enum PageTypeEnum {
   Other = 'OTHER'
 }
 
+export enum PageMetaRobotsEnum {
+  IndexFollow = 'index, follow',
+  NoIndexFollow = 'noindex, follow',
+  IndexNoFollow = 'index, nofollow',
+  NoIndexNoFollow = 'noindex, nofollow'
+}
+
 export interface Page extends IEntity {
   id: string
   title: string
@@ -16,6 +23,7 @@ export interface Page extends IEntity {
     keywords: string
     author: string
     canonical: string // Generated automatically
+    robots: PageMetaRobotsEnum // https://developers.google.com/search/docs/advanced/robots/robots_meta_tag
   }
   scssCodeInternal: string
   scssCodeExternal: string

@@ -36,7 +36,7 @@ export interface Publication extends IEntity {
   eventDate: string // eg. 'March 12-18, 2016'
   doi: string // eg. 'https://doi.org/10.1016/S0019-9958(65)90426-2'
   abstract: string // eg. 'There has been much recent interest in languages whose grammar is sufficiently...'
-  abbreviationLink: Link // Link to the Conference or Journal website with its initials as title
+  abbreviationLink: Link | null // Link to the Conference or Journal website with its initials as title
   comment1: string // eg. 'Poster Abstract'
   comment2: string // eg. '* PDF provided through ACM Author-izer'
   links: Array<Link>
