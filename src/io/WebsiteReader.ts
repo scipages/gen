@@ -233,7 +233,7 @@ export class WebsiteReader {
       this.enabledPages[page.id] = page
       // this.enabledPageSectionsPerPage[page.id] = {}
       for (let j = 0; j < page.sections.length; j++) {
-        const pageSection: IPageSection = page.sections[i]
+        const pageSection: IPageSection = page.sections[j]
         if (!pageSection.enabled) {
           continue
         }

@@ -31,14 +31,14 @@ const args = yargs.options({
 
 
 // @ts-ignore
-const themeReader = new ThemeReader(args['theme'], {})
+const themeReader = new ThemeReader(args['theme'])
 if (!themeReader.read()) {
   console.error(JSON.stringify(themeReader.getErrors(), null, 2));
   process.exitCode = 1;
 }
 
 // @ts-ignore
-const websiteReader = new WebsiteReader(args['website'], {})
+const websiteReader = new WebsiteReader(args['website'])
 if (!websiteReader.read()) {
   console.error(JSON.stringify(websiteReader.getErrors(), null, 2));
   process.exitCode = 1;
