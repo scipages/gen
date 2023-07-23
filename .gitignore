@@ -6,6 +6,7 @@ node_modules
 /lib
 /dist
 /coverage
+scipages-gen-*.*.*.tgz
 
 # Log files
 npm-debug.log*
